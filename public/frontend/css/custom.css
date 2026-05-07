@@ -1,0 +1,155 @@
+
+body {
+    background: #e9eaea;
+
+}
+.blockcode-listing-container {margin: 0px 10px;}
+
+.blockcode-listing-inner{
+    border-top: 5px solid #447c66;
+    border-radius: 5px;
+    height: 492px;
+    background: #dbdbda;
+}
+.blockcode-listing-inner h3 {
+    padding: 15px 0px;
+}
+.blockcode-table-padding{padding: 0px 30px 0px 30px;;}
+
+.blockcode-table thead{
+    background: #63b190;
+    color: #fff;
+
+}
+.blockcode-table td, .blockcode-table th {
+    padding: 7px;
+}
+.blockcode-table{
+    background: #fff !important;
+}
+.electoral-list {
+    padding-left: 30px;
+    padding-right: 30px;
+
+}
+.col-lg-12 electoral-list-form{
+    background: #FFF;
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff00;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 0%);
+    border: 0;
+    border-bottom: 2px solid #1e7a61;
+    border-radius: 0px;
+}
+input.form-control.step_1 {
+    border: 0;
+    border-bottom: 1px solid #1e7a61;
+    border-radius: 0px;
+}
+input.form-control.step_2, select.form-control.step_2 {
+    border: 0;
+    border: 1px solid #63b190;
+    border-radius: 0px;
+}
+.electoral-list-title{
+    background: #63b190;
+    color: #fff;
+    padding: 10px;
+    margin: 0px;
+    font-weight: 500;
+}
+.electoral-list-form {
+    background: #fff;
+}
+.electoral-list-form label {
+    display: inline-block;
+    margin-bottom: 0px;
+    position: relative;
+    top: 15px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.step_2_label {
+    position: relative !important;
+    top: 0px !important;
+}
+.blockcode-listing-container .next-btn{
+    border-radius: 0px;
+    background: #63b190;
+    border: #63b190;
+    padding: 5px 20px;
+    margin-right:15px;
+}
+.blockcode-table tr:hover{
+    background: #63b190;
+    color: #fff;
+    cursor: pointer;
+}
+
+tr.code-clicktr.checked{
+    background: #63b190;
+    color: #fff;
+}
+
+.blockcode-table tbody {    display:block;max-height:315px;overflow-y: initial !important;}
+.blockcode-table thead, .blockcode-table tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+.electoral-list ul.nav.nav-tabs a{
+    font-size: 20px;
+    border: 0px;
+}
+.electoral-list ul.nav.nav-tabs a.nav-link.active{
+    background: #63b190;
+    color: #fff;
+    border: #63b190;
+}
+.blockcode-block {
+    background: #fff;
+    border-radius: 5px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+.blockcode-block .row {
+
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.blockcode-block label {
+    margin: 0px;
+    font-weight: 500;
+}
+ul.skip-tab {
+    float: right;
+    margin-right: 15px;
+    margin-top: 5px;
+}
+
+ul.nav.nav-tabs.skip-tab a{
+    color: #63b190;
+}
+.voter-info-block .error {
+    color: red;
+}
+.alert {
+    padding: 3px;
+    margin-bottom: 3px;
+    color: red;
+    background-color: #f8d7da6e;
+    border-color: #f8d7da;
+}
+.cnic-exist {
+display: none;
+}
+
+
+@media screen and (min-width: 280px) {
+
+}
