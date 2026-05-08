@@ -66,6 +66,10 @@
                                     <th>Phone Number</th>
                                     <th>Assigned User</th>
                                     <th>User From</th>
+                                    <th>Polling Stations</th>
+                                    <th>Constituency</th>
+                                    <th>Reference</th>
+                                    <th>FCM Token</th>
                                     <th>Created Time</th>
 
                                 </tr>
@@ -87,6 +91,10 @@
                                         <td>{{$user['phone_number']}}</td>
                                         <td>{{$user['assigned_user']}}</td>
                                         <td>{{$user['user_from']}}</td>
+                                        <td>{{$user['polling_station']}}</td>
+                                        <td>{{$user['na_cons_id']}}</td>
+                                        <td>{{$user['reference']}}</td>
+                                        <td>{{$user['fcm_token']}}</td>
                                         <td>
                                             {{\Carbon\Carbon::parse($user['created_at'])->format('Y-m-d H:i:s')}}
                                             </td>
