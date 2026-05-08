@@ -29,7 +29,6 @@ class AuthController extends Controller{
             $status_code
         );
     }
-
     public function addUserSync(Request $request)
     {
         $user = [];
@@ -40,9 +39,15 @@ class AuthController extends Controller{
         $user['cnic_number'] = $request->input('cnic', '');
         $user['phone_number'] = $request->input('phone', '');
         $user['assigned_user'] = $request->input('assigned_user', '');
+        $user['na_cons_id'] = $request->input('constituency', '');
+        $user['polling_station'] = $request->input('polling_station', '');
+        $user['polling_id'] = $request->input('polling_id', '');
+        $user['reference'] = $request->input('reference', '');
+        $user['fcm_token'] = $request->input('fcm_token', '');
         $user['user_from'] = 'GB';
 
         if (!empty($id_exist)) {
+
             // UPDATE
             $user['updated_at'] = now();
 
@@ -54,17 +59,30 @@ class AuthController extends Controller{
             $message = 'User Updated Successfully';
 
         } else {
+
             // INSERT
             $user['created_at'] = now();
 
             $id = DB::table('app_web_users')->insertGetId($user);
+
             $message = 'User Added Successfully';
         }
+
+        // INSERT LOCATION
+        DB::table('user_locations')->insert([
+            'user_id'    => $id,
+            'longitude'  => $request->input('longitude', ''),
+            'latitude'   => $request->input('latitude', ''),
+            'location'   => $request->input('location', ''),
+            'created_at' => now(),
+        ]);
 
         if ($id) {
             return [
                 'status' => 'true',
-                'data' => ['user' => $id],
+                'data' => [
+                    'user' => $id
+                ],
                 'message' => $message
             ];
         }
@@ -75,7 +93,6 @@ class AuthController extends Controller{
             'message' => 'Error'
         ];
     }
-
 
 
 public function searchedSync(Request $request)

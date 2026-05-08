@@ -24,7 +24,7 @@ use App\Http\Controllers\Backend\VerifierUsersUCWiseController;
 use App\Http\Controllers\Backend\AppWebUsersController;
 use App\Http\Controllers\Backend\ImportVoterlistController;
 use App\Http\Controllers\Backend\BlockcodeVotelistController;
-use App\Http\Controllers\Backend\VerifierStatsController;
+use App\Http\Controllers\Backend\NotificationController;
 /*
 |--------------------------------------------------------------------------
 | Public Route
@@ -43,9 +43,11 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return redirect('/backend/dashboard');
     })->name('dashboard');
 });
+
+
 Route::post('/logout-user', function (Request $request) {
     Auth::logout();
 
@@ -110,6 +112,12 @@ Route::middleware(['auth', 'role:user'])->prefix('user')->group(function () {
 
 Route::group(['prefix' => 'backend'], function() {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('backend_dashboard');
+
+
+    Route::resource('notifications', NotificationController::class)->names('backend.notifications');
+    Route::get('/notification/verify/{id}',[NotificationController::class, 'verify'])->name('notification-verify');
+
+
 
 
     // TESTING

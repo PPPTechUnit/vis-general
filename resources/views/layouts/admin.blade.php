@@ -124,28 +124,6 @@
         <!-- Sidebar content -->
         <div class="sidebar-content">
 
-            <!-- User menu -->
-            <div class="sidebar-user">
-                <div class="card-body">
-                    <div class="media">
-                        <div class="mr-3">
-                            <a href="{{route('backend_dashboard')}}"><img src="{{ asset('admin/assets/images/logo.png')}}" width="38" height="38" class="rounded-circle" alt=""></a>
-                        </div>
-
-                        <div class="media-body">
-                            <div class="media-title font-weight-semibold">{{ Auth::user()->name }}</div>
-                            <div class="font-size-xs opacity-50">
-                                <i class="icon-pin font-size-sm"></i> &nbsp;Karachi
-                            </div>
-                        </div>
-
-                        <div class="ml-3 align-self-center">
-                            <a href="#" class="text-white"><i class="icon-cog3"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /user menu -->
 
 
             <div class="card card-sidebar-mobile">
@@ -163,6 +141,7 @@
                         <li class="nav-item"><a href="{{url('backend/ppp-users')}}" class="nav-link @if(in_array( "ppp-users" ,$full_url )) active @endif"><i class="icon-users"></i><span>PPP Users</span></a></li>
                         <li class="nav-item"><a href="{{route('app-web-users.index')}}" class="nav-link @if(in_array( "app-web-users" ,$full_url )) active @endif"><i class="icon-users"></i><span>Polling Agents</span></a></li>
                         <li class="nav-item"><a href="{{url('backend/searched-voters')}}" class="nav-link @if(in_array( "searched-voters" ,$full_url )) active @endif"><i class="icon-users"></i><span>Searched Voters</span></a></li>
+                        <li class="nav-item"><a href="{{url('backend/notifications')}}" class="nav-link @if(in_array( "notifications" ,$full_url )) active @endif"><i class="icon-users"></i><span>notifications</span></a></li>
 
                 </ul>
             </div>
