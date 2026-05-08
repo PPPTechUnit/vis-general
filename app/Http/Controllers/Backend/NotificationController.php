@@ -138,7 +138,7 @@ class NotificationController extends Controller
                     'payload' => [
                         'aps' => [
                             'alert' => [
-                                'title' => 'Jiyala - Event',
+                                'title' => 'VIS - Notification',
                                 'body' => $plainTextBody_1,
                             ],
                             'sound' => 'default',
