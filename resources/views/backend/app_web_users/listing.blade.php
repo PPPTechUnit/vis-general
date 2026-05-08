@@ -71,6 +71,7 @@
                                     <th>Reference</th>
                                     <th>FCM Token</th>
                                     <th>Created Time</th>
+                                    <th>Updated Time</th>
 
                                 </tr>
                                 </thead>
@@ -97,6 +98,9 @@
                                         <td>{{$user['fcm_token']}}</td>
                                         <td>
                                             {{\Carbon\Carbon::parse($user['created_at'])->format('Y-m-d H:i:s')}}
+                                            </td>
+  <td>
+                                            {{\Carbon\Carbon::parse($user['updated_at'])->format('Y-m-d H:i:s')}}
                                             </td>
 
 
