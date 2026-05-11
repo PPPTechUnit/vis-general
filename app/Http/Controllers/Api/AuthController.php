@@ -139,6 +139,17 @@ public function searchedSync(Request $request)
 }
 
 
+public function getNotification(Request $request)
+{
+
+    return [
+        'status' => 'true',
+        'data' => DB::table('notifications')->select('id','message','created_at')->orderBy('id','desc')->limit(50)->get()->toArray(),
+        'message' => 'get all notifications'
+    ];
+}
+
+
     public function getNewOtp(){
         $otp = (array) DB::table('workers_users_tokens')->where('used',0)->first();
         $response =array();

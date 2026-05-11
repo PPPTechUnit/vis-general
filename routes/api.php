@@ -13,6 +13,7 @@ Route::get('/user', function (Request $request) {
 
 Route::post('add-user-sync', [AuthController::class, 'addUserSync']);
 Route::post('searched-sync', [AuthController::class, 'searchedSync']);
+Route::post('get-notifications', [AuthController::class, 'getNotification']);
 
 
 
