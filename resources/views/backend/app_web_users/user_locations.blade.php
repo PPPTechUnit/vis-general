@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'APP & WEB Users :: users Listing')
+@section('title', 'APP & WEB Users :: users Locations')
 
 @section('content')
     <!-- DataTables CSS -->
@@ -10,7 +10,7 @@
     <div class="page-header page-header-light">
         <div class="page-header-content header-elements-md-inline">
             <div class="page-title d-flex">
-                <h4> <span class="font-weight-semibold">APP & WEB Users</span> - Listing</h4>
+                <h4> <span class="font-weight-semibold">APP & WEB Users</span> - Locations</h4>
                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
             </div>
         </div>
@@ -19,7 +19,9 @@
             <div class="d-flex">
                 <div class="breadcrumb">
                     <a href="{{route('backend_dashboard')}}" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Dashboard</a>
-                    <span class="breadcrumb-item active">users listing</span>
+                    <a href="{{url('backend/app-web-users')}}" class="breadcrumb-item">Users </a>
+
+                    <span class="breadcrumb-item active">users Locations</span>
                 </div>
 
                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
@@ -60,55 +62,20 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th> User ID</th>
-                                    <th> Name</th>
-                                    <th>CNIC Number</th>
-                                    <th>Phone Number</th>
-                                    <th>Assigned User</th>
-                                    <th>User From</th>
-                                    <th>Polling Stations</th>
-                                    <th>Constituency</th>
-                                    <th>Reference</th>
-                                    <th>FCM Token</th>
-                                    <th>Location</th>
-                                    <th>Created Time</th>
-                                    <th>Updated Time</th>
+                                    <th> longitude</th>
+                                    <th> latitude</th>
 
+                                    <th>searched_at</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                  @foreach($users as $i=>$user)
+                                  @foreach($locations as $i=>$location)
                                     <tr>
                                         <td>{{$i+1}}</td>
-                                        <td>{{$user['id']}}</td>
-                                        <td>
-                                            <a href="{{route('app-web-users.show',$user['id'])}}" > {{$user['name']}}</a>
+                                        <td>{{$location->longitude}}</td>
+                                        <td>{{$location->latitude}}</td>
 
-                                            </td>
-
-
-
-
-                                        <td>{{$user['cnic_number']}}</td>
-                                        <td>{{$user['phone_number']}}</td>
-                                        <td>{{$user['assigned_user']}}</td>
-                                        <td>{{$user['user_from']}}</td>
-                                        <td>{{$user['polling_station']}}</td>
-                                        <td>{{$user['na_cons_id']}}</td>
-                                        <td>{{$user['reference']}}</td>
-                                        <td>{{$user['fcm_token']}}</td>
-                                        <td>
-                                            <a href="{{url('backend/app-web-users-location/'.$user['id'])}}" > View Location</a>
-
-                                        </td>
-
-                                        <td>
-                                            {{\Carbon\Carbon::parse($user['created_at'])->format('Y-m-d H:i:s')}}
-                                            </td>
-  <td>
-                                            {{\Carbon\Carbon::parse($user['updated_at'])->format('Y-m-d H:i:s')}}
-                                            </td>
-
+                                        <td>{{\Carbon\Carbon::parse($location->created_at)->format('Y-m-d H:i:s')}}</td>
 
                                     </tr>
                                     @endforeach

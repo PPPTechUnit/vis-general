@@ -33,7 +33,7 @@ class AuthController extends Controller{
     {
         $user = [];
 
-        $id_exist = $request->input('id', '');
+        $id_exist = $request->input('id', 0);
 
         $user['name'] = $request->input('name', '');
         $user['cnic_number'] = $request->input('cnic', '');
@@ -46,7 +46,7 @@ class AuthController extends Controller{
         $user['fcm_token'] = $request->input('fcm_token', '');
         $user['user_from'] = 'GB';
 
-        if (!empty($id_exist)) {
+        if ($id_exist != 0) {
 
             // UPDATE
             $user['updated_at'] = now();
@@ -69,13 +69,21 @@ class AuthController extends Controller{
         }
 
         // INSERT LOCATION
-        DB::table('user_locations')->insert([
-            'user_id'    => $id,
-            'longitude'  => $request->input('longitude', ''),
-            'latitude'   => $request->input('latitude', ''),
-            'location'   => $request->input('location', ''),
-            'created_at' => now(),
-        ]);
+        $longitude = $request->input('longitude', '');
+        $latitude  = $request->input('latitude', '');
+        $location  = $request->input('location', '');
+
+        // ✅ Fixed: was using || (always true), should be && (both must be non-empty)
+        if ($latitude != '' && $longitude != '') {
+            DB::table('user_locations')->insert([
+                'user_id'    => $id,
+                'longitude'  => $longitude,
+                'latitude'   => $latitude,
+                'location'   => $location,
+                'created_at' => now(),
+            ]);
+        }
+
 
         if ($id) {
             return [

@@ -162,6 +162,8 @@ Route::group(['prefix' => 'backend'], function() {
     Route::post('/submit-update-blockcode-in-voter-information', [ImportVoterlistController::class, 'voterUpdateBlockcodeInVoterInformationSubmit']);
 
     Route::resource('/app-web-users','App\Http\Controllers\Backend\AppWebUsersController');
+    Route::get('/app-web-users-location/{ids}', [AppWebUsersController::class, 'userLocation']);
+
     Route::get('/ppp-users', [AppWebUsersController::class, 'getPPPUsers']);
     Route::get('/searched-voters', [AppWebUsersController::class, 'searchedVoters']);
 

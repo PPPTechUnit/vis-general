@@ -45,5 +45,12 @@ class AppWebUsersController extends Controller{
         return view('backend.app_web_users.voters_listing',['users'=>$voters]);
     }
 
+    public function userLocation($id){
+        $locations  =DB::table('user_locations')->where('user_id',$id )->orderBy('id','desc')->get()->toArray();
+
+        //echo "<pre>"; print_r($voters); die;
+        return view('backend.app_web_users.user_locations',['locations'=>$locations]);
+    }
+
 
 }
