@@ -92,6 +92,7 @@ class NotificationController extends Controller
         $data->verified_by =  isset(Auth::user()->id)?Auth::user()->id:"";
         date_default_timezone_set("Asia/Karachi");
         $data->verified_at =  date('Y-m-d h:i:s', time());
+        $data->sent = 1;
         $result = $data->save();
         $notification = Notification::where('id',$id)->first()->toArray();
         $this->sendFirebaseNotification($notification);

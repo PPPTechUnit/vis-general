@@ -71,6 +71,7 @@
                                                 <th>#</th>
                                                 <th>Message</th>
                                                 <th>Created</th>
+                                                <th>Notification</th>
                                                 <th>Actions</th>
                                             </tr>
                                             </thead>
@@ -78,18 +79,27 @@
                                             @foreach($notifications as $notification)
                                                 <tr>
                                                     <td><span class="badge">{{ $notification->id }}</span></td>
-                                                    <td>
-                                                    <span class="truncate" title="{{ $notification->message }}">{{ $notification->message }}
-                                                    </span>
-                                                    </td>
+                                                    <td><span class="truncate" title="{{ $notification->message }}">{{ $notification->message }}</span></td>
+
                                                     <td class="meta">{{ $notification->created_at->format('d M Y, H:i') }}</td>
-                                                    <td>
-                                                        <div class="td-actions" style="    display: inline-flex">
+                                                    <td class="meta">
+
+                                                        @if($notification['sent'] == 1)
+                                                            Sent Notification
+                                                        @else
                                                             <a class="dropdown-item"
                                                                href="{{ route('notification-verify', $notification['id']) }}"
                                                                onclick="return confirm('Are you sure to send notification?')">
-                                                                Verify
+                                                                Send Notification
                                                             </a>
+                                                        @endif
+
+
+
+                                                    </td>
+                                                    <td>
+                                                        <div class="td-actions" style="    display: inline-flex">
+
                                                             <a href="{{ route('backend.notifications.edit', $notification) }}" class="btn btn-ghost btn-sm">✏ Edit</a>
 
                                                             <form action="{{ route('backend.notifications.destroy', $notification) }}" method="POST" onsubmit="return confirm('Delete this notification?')">

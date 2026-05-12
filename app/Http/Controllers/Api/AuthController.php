@@ -69,12 +69,12 @@ class AuthController extends Controller{
         }
 
         // INSERT LOCATION
-        $longitude = $request->input('longitude', '');
-        $latitude  = $request->input('latitude', '');
+        $longitude = $request->input('longitude', 0);
+        $latitude  = $request->input('latitude', 0);
         $location  = $request->input('location', '');
 
         // ✅ Fixed: was using || (always true), should be && (both must be non-empty)
-        if ($latitude != '' && $longitude != '') {
+        if ($latitude != 0 && $longitude != 0) {
             DB::table('user_locations')->insert([
                 'user_id'    => $id,
                 'longitude'  => $longitude,
@@ -152,7 +152,7 @@ public function getNotification(Request $request)
 
     return [
         'status' => 'true',
-        'data' => DB::table('notifications')->select('id','message','created_at')->orderBy('id','desc')->limit(50)->get()->toArray(),
+        'data' => DB::table('notifications')->select('id','message','created_at')->where('sent',1)->orderBy('id','desc')->limit(50)->get()->toArray(),
         'message' => 'get all notifications'
     ];
 }
