@@ -80,8 +80,12 @@
             <li class="nav-item dropdown dropdown-user">
                 <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
                     <img src="{{ asset('admin/assets/images/logo.png')}}" class="rounded-circle mr-2" height="34" alt="">
+                    @auth
                     <span>{{ Auth::user()->name }}</span>
-                </a>
+                    @else
+                        <?php header('Location: ' . route('login')); exit(); ?>
+                        @endauth
+            </a>
 
                 <div class="dropdown-menu dropdown-menu-right">
                     <a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
