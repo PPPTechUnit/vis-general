@@ -152,15 +152,11 @@ public function getNotification(Request $request)
 
     $user_id =isset($request['user_id'])?$request['user_id']:0;
 
-//       $notifications = DB::table('notifications')
-//           ->join('notifications_users','notifications_users.notification_id','notifications.id')
-//             ->where('notifications_users.user_id',$user_id)
-//             ->select('notifications.id','notifications.message','notifications.created_at')
-//           ->where('notifications.sent',1)->orderBy('notifications.id','desc')->limit(50)->get()->toArray();
-
- $notifications = DB::table('notifications')
-     ->where('notifications.sent',1)->orderBy('notifications.id','desc')->limit(50)->get()->toArray();
-
+       $notifications = DB::table('notifications')
+           ->join('notifications_users','notifications_users.notification_id','notifications.id')
+             ->where('notifications_users.user_id',$user_id)
+             ->select('notifications.id','notifications.message','notifications.created_at')
+           ->where('notifications.sent',1)->orderBy('notifications.id','desc')->limit(50)->get()->toArray();
     return [
         'status' => 'true',
         'data' => $notifications,
