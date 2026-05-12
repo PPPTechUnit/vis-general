@@ -116,22 +116,29 @@ class NotificationController extends Controller
         $pages = ceil($members_count / 1000);
         for ($a = 0; $a < $pages; $a++) {
             $notification_members = [];
-            $notification_member_id = [];
+            $insertData = [];
             $skip = $a * 1000;
             $members = DB::table("app_web_users")->whereNotNull('fcm_token')->skip($skip)->take(1000)->get();
 
             foreach ($members as $member) {
                 $notification_members[] = $member->fcm_token;
-                $notification_member_id[] = $member->id;
+                $insertData[] = [
+                    'user_id'         => $member->id,
+                    'notification_id' => $para['id'],
+                    'created_at'      => now(),
+                ];
             }
-            foreach ($notification_member_id as $member_id){
+            DB::table('notifications_users')->insert($insertData);
+
+
+            /*foreach ($notification_member_id as $member_id){
                 DB::table('notifications_users')->insert([
                     'user_id'    => $member_id,
                     'notification_id'  => $para['id'],
-
                     'created_at' => now(),
                 ]);
-            }
+            }*/
+
 
 
             $plainTextBody_1 = strip_tags($para['message']);
