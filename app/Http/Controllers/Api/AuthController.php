@@ -150,9 +150,17 @@ public function searchedSync(Request $request)
 public function getNotification(Request $request)
 {
 
+    $user_id =isset($request['user_id'])?$request['user_id']:0;
+
+       $notifications = DB::table('notifications')
+           ->join('notifications_users','notifications_users.notification_id','notifications.id')
+             ->where('notifications_users.user_id',$user_id)
+             ->select('notifications.id','notifications.message','notifications.created_at')
+           ->where('notifications.sent',1)->orderBy('notifications.id','desc')->limit(50)->get()->toArray();
+
     return [
         'status' => 'true',
-        'data' => DB::table('notifications')->select('id','message','created_at')->where('sent',1)->orderBy('id','desc')->limit(50)->get()->toArray(),
+        'data' => $notifications,
         'message' => 'get all notifications'
     ];
 }

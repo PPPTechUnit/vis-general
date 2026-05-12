@@ -107,7 +107,7 @@ class NotificationController extends Controller
     public function sendFirebaseNotification($para)
     {
         $file_path = storage_path('/jiyala-notification.json');
-        //echo $file_path; die;
+
         // Initialize Firebase with the service account JSON file
         $factory = (new Factory)->withServiceAccount($file_path);
         // Get the Messaging instance
@@ -116,13 +116,23 @@ class NotificationController extends Controller
         $pages = ceil($members_count / 1000);
         for ($a = 0; $a < $pages; $a++) {
             $notification_members = [];
+            $notification_member_id = [];
             $skip = $a * 1000;
             $members = DB::table("app_web_users")->whereNotNull('fcm_token')->skip($skip)->take(1000)->get();
 
             foreach ($members as $member) {
                 $notification_members[] = $member->fcm_token;
-
+                $notification_member_id[] = $member->id;
             }
+            foreach ($notification_member_id as $member_id){
+                DB::table('notifications_users')->insert([
+                    'user_id'    => $member_id,
+                    'notification_id'  => $para['id'],
+
+                    'created_at' => now(),
+                ]);
+            }
+
 
             $plainTextBody_1 = strip_tags($para['message']);
 
