@@ -108,7 +108,9 @@ class NotificationController extends Controller
     public function sendFirebaseNotification($para)
     {
         $file_path = storage_path('/vis-gb-notification.json');
-
+        $sa = json_decode(file_get_contents($file_path), true);
+        \Log::info('SA email: ' . ($sa['client_email'] ?? 'MISSING') . ' | project: ' . ($sa['project_id'] ??
+                'MISSING'));
         // Initialize Firebase with the service account JSON file
         $factory = (new Factory)->withServiceAccount($file_path);
         // Get the Messaging instance
@@ -223,6 +225,7 @@ class NotificationController extends Controller
                 foreach ($response->failures()->getItems() as $failure) {
                     \Log::error('FCM FAIL: ' . $failure->target()->value() . ' — ' . $failure->error()->getMessage());
                 }
+
 
                 echo 'Success: ' . $response->successes()->count() . ' messages were sent successfully.';
                 //  echo 'Success: ' . $response->successes()->count() . ' messages were sent successfully.';
