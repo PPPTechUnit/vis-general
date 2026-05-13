@@ -220,6 +220,7 @@ class NotificationController extends Controller
                 echo 'Success: ' . $response->successes()->count() . ' messages were sent successfully.';
                 //  echo 'Success: ' . $response->successes()->count() . ' messages were sent successfully.';
                 \Log::info($plainTextBody_1);
+                \Log::info($notification_members);
 
             } catch (\Throwable $e) {
                 echo 'Error: ' . $e->getMessage();
