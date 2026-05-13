@@ -124,11 +124,11 @@ class NotificationController extends Controller
             $members = [
                 (object)[
                     'id' => 33,
-                    'fcm' => 'dhKKWTzVTt6110XRzBCiCz:APA91bG5VnfoBpiLoxiQ0btZhXfmoaVZksx9IDKNDWtarZOR1NqBtOqfj2PTwndn5avGgnR1J8XGgPQ6dD0s9pxl8-626vcOzEOI911e68aqtUUbBo4AaUQ'
+                    'fcm_token' => 'dhKKWTzVTt6110XRzBCiCz:APA91bG5VnfoBpiLoxiQ0btZhXfmoaVZksx9IDKNDWtarZOR1NqBtOqfj2PTwndn5avGgnR1J8XGgPQ6dD0s9pxl8-626vcOzEOI911e68aqtUUbBo4AaUQ'
                 ]
             ];
 
-            
+
             foreach ($members as $member) {
                 $notification_members[] = $member->fcm_token;
                 $insertData[] = [
