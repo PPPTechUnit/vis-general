@@ -131,23 +131,22 @@ class NotificationController extends Controller
             DB::table('notifications_users')->insert($insertData);
 
 
-            /*foreach ($notification_member_id as $member_id){
-                DB::table('notifications_users')->insert([
-                    'user_id'    => $member_id,
-                    'notification_id'  => $para['id'],
-                    'created_at' => now(),
-                ]);
-            }*/
-
 
 
             $plainTextBody_1 = strip_tags($para['message']);
 
             // Create the message
-            $message = CloudMessage::new()
+            /*$message = CloudMessage::new()
                 ->withNotification(FirebaseNotification::create('VIS - Notification', $plainTextBody_1))
+                ->withData([
+                    'title' => 'VIS - Notification',
+                    'body'  => $plainTextBody_1,
+                ])
                 ->withAndroidConfig(AndroidConfig::fromArray([
                     'priority' => 'high',
+                    'notification' => [
+                        'channel_id' => 'vis_high_importance_channel',
+                    ],
                 ]))
                 ->withApnsConfig(ApnsConfig::fromArray([
                     'headers' => [
@@ -157,11 +156,22 @@ class NotificationController extends Controller
                         'aps' => [
                             'alert' => [
                                 'title' => 'VIS - Notification',
-                                'body' => $plainTextBody_1,
+                                'body'  => $plainTextBody_1,
                             ],
                             'sound' => 'default',
                         ],
                     ],
+                ]));*/
+            $message = CloudMessage::new()
+                ->withNotification(FirebaseNotification::create('VIS - Notification', $plainTextBody_1))
+                ->withData(['title' => 'VIS - Notification', 'body' => $plainTextBody_1])
+                ->withAndroidConfig(AndroidConfig::fromArray(['priority' => 'high']))
+                ->withApnsConfig(ApnsConfig::fromArray([
+                    'headers' => ['apns-priority' => '10'],
+                    'payload' => ['aps' => [
+                        'alert' => ['title' => 'VIS - Notification', 'body' => $plainTextBody_1],
+                        'sound' => 'default',
+                    ]],
                 ]));
 
             //echo "<pre>"; print_r($notification_members);
