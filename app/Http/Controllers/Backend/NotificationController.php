@@ -136,7 +136,7 @@ class NotificationController extends Controller
             $plainTextBody_1 = strip_tags($para['message']);
 
             // Create the message
-            $message = CloudMessage::new()
+            /*$message = CloudMessage::new()
                 ->withNotification(FirebaseNotification::create('VIS - Notification', $plainTextBody_1))
                 ->withData([
                     'title' => 'VIS - Notification',
@@ -161,6 +161,17 @@ class NotificationController extends Controller
                             'sound' => 'default',
                         ],
                     ],
+                ]));*/
+            $message = CloudMessage::new()
+                ->withNotification(FirebaseNotification::create('VIS - Notification', $plainTextBody_1))
+                ->withData(['title' => 'VIS - Notification', 'body' => $plainTextBody_1])
+                ->withAndroidConfig(AndroidConfig::fromArray(['priority' => 'high']))
+                ->withApnsConfig(ApnsConfig::fromArray([
+                    'headers' => ['apns-priority' => '10'],
+                    'payload' => ['aps' => [
+                        'alert' => ['title' => 'VIS - Notification', 'body' => $plainTextBody_1],
+                        'sound' => 'default',
+                    ]],
                 ]));
 
             //echo "<pre>"; print_r($notification_members);
