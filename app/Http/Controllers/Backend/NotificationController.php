@@ -107,7 +107,7 @@ class NotificationController extends Controller
 
     public function sendFirebaseNotification($para)
     {
-        $file_path = storage_path('/vis-gb-notification.json');
+        $file_path = storage_path('/abc.json');
         $sa = json_decode(file_get_contents($file_path), true);
         \Log::info('SA email: ' . ($sa['client_email'] ?? 'MISSING') . ' | project: ' . ($sa['project_id'] ??
                 'MISSING'));
