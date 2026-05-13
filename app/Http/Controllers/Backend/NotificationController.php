@@ -12,6 +12,7 @@ use Kreait\Firebase\Factory;
 use \Kreait\Firebase\ServiceAccount;
 use Kreait\Firebase\Messaging\AndroidConfig;
 use Kreait\Firebase\Messaging\ApnsConfig;
+use Kreait\Firebase\Messaging\Notification as FirebaseNotification; // <-- alias this
 
 class NotificationController extends Controller
 {
@@ -136,12 +137,16 @@ class NotificationController extends Controller
 
             // Create the message
             $message = CloudMessage::new()
+                ->withNotification(FirebaseNotification::create('VIS - Notification', $plainTextBody_1))
                 ->withData([
                     'title' => 'VIS - Notification',
                     'body'  => $plainTextBody_1,
                 ])
                 ->withAndroidConfig(AndroidConfig::fromArray([
                     'priority' => 'high',
+                    'notification' => [
+                        'channel_id' => 'vis_high_importance_channel',
+                    ],
                 ]))
                 ->withApnsConfig(ApnsConfig::fromArray([
                     'headers' => [
@@ -153,8 +158,7 @@ class NotificationController extends Controller
                                 'title' => 'VIS - Notification',
                                 'body'  => $plainTextBody_1,
                             ],
-                            'sound'             => 'default',
-                            'content-available' => 1,
+                            'sound' => 'default',
                         ],
                     ],
                 ]));
