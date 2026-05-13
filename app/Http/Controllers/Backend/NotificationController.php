@@ -185,7 +185,7 @@ class NotificationController extends Controller
                 // echo "Notification sent in $duration seconds<br>";
                 echo 'Success: ' . $response->successes()->count() . ' messages were sent successfully.';
                 //  echo 'Success: ' . $response->successes()->count() . ' messages were sent successfully.';
-                \Log::error('message sent');
+                \Log::info('message sent');
 
             } catch (\Throwable $e) {
                 echo 'Error: ' . $e->getMessage();
