@@ -106,7 +106,7 @@ class NotificationController extends Controller
 
     public function sendFirebaseNotification($para)
     {
-        $file_path = storage_path('/jiyala-notification.json');
+        $file_path = storage_path('/vis-gb-notification.json');
 
         // Initialize Firebase with the service account JSON file
         $factory = (new Factory)->withServiceAccount($file_path);
