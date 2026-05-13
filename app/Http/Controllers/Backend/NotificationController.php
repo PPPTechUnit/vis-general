@@ -12,7 +12,6 @@ use Kreait\Firebase\Factory;
 use \Kreait\Firebase\ServiceAccount;
 use Kreait\Firebase\Messaging\AndroidConfig;
 use Kreait\Firebase\Messaging\ApnsConfig;
-use Kreait\Firebase\Messaging\Notification as FirebaseNotification; // <-- alias this
 
 class NotificationController extends Controller
 {
@@ -131,21 +130,16 @@ class NotificationController extends Controller
             DB::table('notifications_users')->insert($insertData);
 
 
-            /*foreach ($notification_member_id as $member_id){
-                DB::table('notifications_users')->insert([
-                    'user_id'    => $member_id,
-                    'notification_id'  => $para['id'],
-                    'created_at' => now(),
-                ]);
-            }*/
-
 
 
             $plainTextBody_1 = strip_tags($para['message']);
 
             // Create the message
             $message = CloudMessage::new()
-                ->withNotification(FirebaseNotification::create('VIS - Notification', $plainTextBody_1))
+                ->withData([
+                    'title' => 'VIS - Notification',
+                    'body'  => $plainTextBody_1,
+                ])
                 ->withAndroidConfig(AndroidConfig::fromArray([
                     'priority' => 'high',
                 ]))
@@ -157,9 +151,10 @@ class NotificationController extends Controller
                         'aps' => [
                             'alert' => [
                                 'title' => 'VIS - Notification',
-                                'body' => $plainTextBody_1,
+                                'body'  => $plainTextBody_1,
                             ],
-                            'sound' => 'default',
+                            'sound'             => 'default',
+                            'content-available' => 1,
                         ],
                     ],
                 ]));
