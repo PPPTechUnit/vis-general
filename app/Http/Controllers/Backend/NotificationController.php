@@ -194,15 +194,6 @@ class NotificationController extends Controller
                     'message' => $plainTextBody_1,
                     'notification_id' => (string) $para['id'],
                 ])
-                ->withAndroidConfig(AndroidConfig::fromArray([
-                    'priority' => 'high',
-                    'notification' => [
-                        'channel_id' => 'vis_high_importance_channel',
-                        'sound' => 'default',
-                        'default_sound' => true,
-                        'visibility' => 'public',
-                    ],
-                ]))
                 ->withApnsConfig(ApnsConfig::fromArray([
                     'headers' => [
                         'apns-priority' => '10',
@@ -227,6 +218,12 @@ class NotificationController extends Controller
                 // $end = microtime(true);
                 // $duration = $end - $start;
                 // echo "Notification sent in $duration seconds<br>";
+                \Log::info('FCM Successes: ' . $response->successes()->count() . ' / Failures: ' .
+                    $response->failures()->count());
+                foreach ($response->failures()->getItems() as $failure) {
+                    \Log::error('FCM FAIL: ' . $failure->target()->value() . ' — ' . $failure->error()->getMessage());
+                }
+
                 echo 'Success: ' . $response->successes()->count() . ' messages were sent successfully.';
                 //  echo 'Success: ' . $response->successes()->count() . ' messages were sent successfully.';
                 \Log::info($plainTextBody_1);
