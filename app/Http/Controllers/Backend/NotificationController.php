@@ -121,12 +121,12 @@ class NotificationController extends Controller
             $skip = $a * 1000;
             $members = DB::table("app_web_users")->whereNotNull('fcm_token')->skip($skip)->take(1000)->get();
 
-            $members = [
+            /*$members = [
                 (object)[
                     'id' => 33,
                     'fcm_token' => 'dhKKWTzVTt6110XRzBCiCz:APA91bG5VnfoBpiLoxiQ0btZhXfmoaVZksx9IDKNDWtarZOR1NqBtOqfj2PTwndn5avGgnR1J8XGgPQ6dD0s9pxl8-626vcOzEOI911e68aqtUUbBo4AaUQ'
                 ]
-            ];
+            ];*/
 
 
             foreach ($members as $member) {
