@@ -12,7 +12,8 @@ use Kreait\Firebase\Factory;
 use \Kreait\Firebase\ServiceAccount;
 use Kreait\Firebase\Messaging\AndroidConfig;
 use Kreait\Firebase\Messaging\ApnsConfig;
-use Kreait\Firebase\Messaging\Notification as FirebaseNotification; // <-- alias this
+use Kreait\Firebase\Messaging\Notification as FirebaseNotification;
+use function Symfony\Component\Cache\Traits\object; // <-- alias this
 
 class NotificationController extends Controller
 {
@@ -120,6 +121,13 @@ class NotificationController extends Controller
             $skip = $a * 1000;
             $members = DB::table("app_web_users")->whereNotNull('fcm_token')->skip($skip)->take(1000)->get();
 
+            $members = [
+                (object)[
+                    'id' => 33,
+                    'fcm' => 'dhKKWTzVTt6110XRzBCiCz:APA91bG5VnfoBpiLoxiQ0btZhXfmoaVZksx9IDKNDWtarZOR1NqBtOqfj2PTwndn5avGgnR1J8XGgPQ6dD0s9pxl8-626vcOzEOI911e68aqtUUbBo4AaUQ'
+                ]
+            ];
+
             foreach ($members as $member) {
                 $notification_members[] = $member->fcm_token;
                 $insertData[] = [
@@ -128,6 +136,7 @@ class NotificationController extends Controller
                     'created_at'      => now(),
                 ];
             }
+
             DB::table('notifications_users')->insert($insertData);
 
 
