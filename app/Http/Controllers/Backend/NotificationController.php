@@ -128,6 +128,7 @@ class NotificationController extends Controller
                 ]
             ];
 
+            
             foreach ($members as $member) {
                 $notification_members[] = $member->fcm_token;
                 $insertData[] = [
