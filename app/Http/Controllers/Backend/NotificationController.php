@@ -162,7 +162,7 @@ class NotificationController extends Controller
                         ],
                     ],
                 ]));*/
-            $message = CloudMessage::new()
+            /*$message = CloudMessage::new()
                 ->withNotification(FirebaseNotification::create('VIS - Notification', $plainTextBody_1))
                 ->withData(['title' => 'VIS - Notification', 'body' => $plainTextBody_1])
                 ->withAndroidConfig(AndroidConfig::fromArray(['priority' => 'high']))
@@ -172,6 +172,40 @@ class NotificationController extends Controller
                         'alert' => ['title' => 'VIS - Notification', 'body' => $plainTextBody_1],
                         'sound' => 'default',
                     ]],
+                ]));*/
+            $title = 'VIS - Notification';
+            $plainTextBody_1 = trim(strip_tags($para['message']));
+
+            $message = CloudMessage::new()
+                ->withNotification(FirebaseNotification::create($title, $plainTextBody_1))
+                ->withData([
+                    'title' => $title,
+                    'body' => $plainTextBody_1,
+                    'message' => $plainTextBody_1,
+                    'notification_id' => (string) $para['id'],
+                ])
+                ->withAndroidConfig(AndroidConfig::fromArray([
+                    'priority' => 'high',
+                    'notification' => [
+                        'channel_id' => 'vis_high_importance_channel',
+                        'sound' => 'default',
+                        'default_sound' => true,
+                        'visibility' => 'public',
+                    ],
+                ]))
+                ->withApnsConfig(ApnsConfig::fromArray([
+                    'headers' => [
+                        'apns-priority' => '10',
+                    ],
+                    'payload' => [
+                        'aps' => [
+                            'alert' => [
+                                'title' => $title,
+                                'body' => $plainTextBody_1,
+                            ],
+                            'sound' => 'default',
+                        ],
+                    ],
                 ]));
 
             //echo "<pre>"; print_r($notification_members);
@@ -185,7 +219,7 @@ class NotificationController extends Controller
                 // echo "Notification sent in $duration seconds<br>";
                 echo 'Success: ' . $response->successes()->count() . ' messages were sent successfully.';
                 //  echo 'Success: ' . $response->successes()->count() . ' messages were sent successfully.';
-                \Log::info('message sent');
+                \Log::info($plainTextBody_1);
 
             } catch (\Throwable $e) {
                 echo 'Error: ' . $e->getMessage();
