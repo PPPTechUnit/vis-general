@@ -14,6 +14,7 @@ Route::get('/user', function (Request $request) {
 Route::post('add-user-sync', [AuthController::class, 'addUserSync']);
 Route::post('searched-sync', [AuthController::class, 'searchedSync']);
 Route::any('get-notifications', [AuthController::class, 'getNotification']);
+Route::post('user-kill-switch', [AuthController::class, 'userKillSwitch']);
 
 
 

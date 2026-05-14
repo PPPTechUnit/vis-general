@@ -165,6 +165,23 @@ public function getNotification(Request $request)
 }
 
 
+    public function userKillSwitch(Request $request)
+    {
+        $user_id = isset($request['user_id']) ? $request['user_id'] : 0;
+
+        $kill_switch = DB::table('app_web_users')
+            ->where('id', $user_id)
+            ->where('kill_switch', 1)
+            ->value('kill_switch');
+        $user['user'] =$kill_switch ?? '0';
+
+        return [
+            'status' => true,
+            'data' => $user,
+            'message' => 'User kill switch'
+        ];
+    }
+
     public function getNewOtp(){
         $otp = (array) DB::table('workers_users_tokens')->where('used',0)->first();
         $response =array();

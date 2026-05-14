@@ -52,5 +52,9 @@ class AppWebUsersController extends Controller{
         return view('backend.app_web_users.user_locations',['locations'=>$locations]);
     }
 
-
+    public function toggleKillSwitch($id, Request $request) {
+        // update kill_switch for the user
+        AppWebUser::findOrFail($id)->update(['kill_switch' => $request->kill_switch]);
+        return back()->with('success', 'Kill switch updated successfully.');
+    }
 }

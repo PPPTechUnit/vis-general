@@ -163,6 +163,7 @@ Route::group(['prefix' => 'backend'], function() {
 
     Route::resource('/app-web-users','App\Http\Controllers\Backend\AppWebUsersController');
     Route::get('/app-web-users-location/{ids}', [AppWebUsersController::class, 'userLocation']);
+    Route::patch('/app-web-users-kill-switch/{id}', [AppWebUsersController::class, 'toggleKillSwitch'])->name('app-web-users.kill-switch');
 
     Route::get('/ppp-users', [AppWebUsersController::class, 'getPPPUsers']);
     Route::get('/searched-voters', [AppWebUsersController::class, 'searchedVoters']);

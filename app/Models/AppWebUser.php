@@ -27,4 +27,7 @@ class AppWebUser extends Model
     {
         return $this->hasMany(VoterListVotersInfoHistory::class,'user_id','id');
     }
+    protected $fillable = [
+        'kill_switch',  // <-- add this
+    ];
 }
