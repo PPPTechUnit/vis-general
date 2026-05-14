@@ -115,7 +115,7 @@ class NotificationController extends Controller
         // Get the Messaging instance
         $messaging = $factory->createMessaging();
         $members_count = DB::table("app_web_users")
-            //->where('kill_switch',0)
+            ->where('kill_switch',0)
             ->whereNotNull('fcm_token')->count();
         $pages = ceil($members_count / 1000);
         for ($a = 0; $a < $pages; $a++) {
@@ -123,7 +123,7 @@ class NotificationController extends Controller
             $insertData = [];
             $skip = $a * 1000;
             $members = DB::table("app_web_users")->whereNotNull('fcm_token')
-                //->where('kill_switch',0)
+                ->where('kill_switch',0)
                 ->skip($skip)->take(1000)->get();
 
             /*$members = [

@@ -157,7 +157,9 @@ public function getNotification(Request $request)
            ->join('app_web_users','app_web_users.id','notifications_users.user_id')
              ->where('notifications_users.user_id',$user_id)
              ->select('notifications.id','notifications.message','notifications.created_at')
-            ->where('app_web_users.kill_switch',0) ->where('notifications.sent',1)->orderBy('notifications.id','desc')->limit(50)->get()->toArray();
+            ->where('app_web_users.kill_switch',0)
+           ->where('notifications.sent',1)
+           ->orderBy('notifications.id','desc')->limit(50)->get()->toArray();
     return [
         'status' => 'true',
         'data' => $notifications,
