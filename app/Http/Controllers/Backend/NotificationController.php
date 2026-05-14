@@ -109,19 +109,18 @@ class NotificationController extends Controller
     {
         $file_path = storage_path('/vis-gb-notification.json');
         $sa = json_decode(file_get_contents($file_path), true);
-        \Log::info('SA email: ' . ($sa['client_email'] ?? 'MISSING') . ' | project: ' . ($sa['project_id'] ??
-                'MISSING'));
+        \Log::info('SA email: ' . ($sa['client_email'] ?? 'MISSING') . ' | project: ' . ($sa['project_id'] ??'MISSING'));
         // Initialize Firebase with the service account JSON file
         $factory = (new Factory)->withServiceAccount($file_path);
         // Get the Messaging instance
         $messaging = $factory->createMessaging();
-        $members_count = DB::table("app_web_users")->whereNotNull('fcm_token')->count();
+        $members_count = DB::table("app_web_users")->where('kill_switch',0)->whereNotNull('fcm_token')->count();
         $pages = ceil($members_count / 1000);
         for ($a = 0; $a < $pages; $a++) {
             $notification_members = [];
             $insertData = [];
             $skip = $a * 1000;
-            $members = DB::table("app_web_users")->whereNotNull('fcm_token')->skip($skip)->take(1000)->get();
+            $members = DB::table("app_web_users")->whereNotNull('fcm_token')->where('kill_switch',0)->skip($skip)->take(1000)->get();
 
             /*$members = [
                 (object)[
