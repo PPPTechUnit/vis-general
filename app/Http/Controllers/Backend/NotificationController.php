@@ -115,7 +115,7 @@ class NotificationController extends Controller
         // Get the Messaging instance
         $messaging = $factory->createMessaging();
         $members_count = DB::table("app_web_users")
-            ->where('kill_switch',0)
+            ->where('kill_switch','0')
             ->whereNotNull('fcm_token')->count();
         $pages = ceil($members_count / 1000);
         for ($a = 0; $a < $pages; $a++) {
@@ -123,15 +123,8 @@ class NotificationController extends Controller
             $insertData = [];
             $skip = $a * 1000;
             $members = DB::table("app_web_users")->whereNotNull('fcm_token')
-                ->where('kill_switch',0)
+                ->where('kill_switch','0')
                 ->skip($skip)->take(1000)->get();
-
-            /*$members = [
-                (object)[
-                    'id' => 33,
-                    'fcm_token' => 'dhKKWTzVTt6110XRzBCiCz:APA91bG5VnfoBpiLoxiQ0btZhXfmoaVZksx9IDKNDWtarZOR1NqBtOqfj2PTwndn5avGgnR1J8XGgPQ6dD0s9pxl8-626vcOzEOI911e68aqtUUbBo4AaUQ'
-                ]
-            ];*/
 
 
             foreach ($members as $member) {
@@ -146,48 +139,6 @@ class NotificationController extends Controller
             DB::table('notifications_users')->insert($insertData);
 
 
-
-
-            $plainTextBody_1 = strip_tags($para['message']);
-
-            // Create the message
-            /*$message = CloudMessage::new()
-                ->withNotification(FirebaseNotification::create('VIS - Notification', $plainTextBody_1))
-                ->withData([
-                    'title' => 'VIS - Notification',
-                    'body'  => $plainTextBody_1,
-                ])
-                ->withAndroidConfig(AndroidConfig::fromArray([
-                    'priority' => 'high',
-                    'notification' => [
-                        'channel_id' => 'vis_high_importance_channel',
-                    ],
-                ]))
-                ->withApnsConfig(ApnsConfig::fromArray([
-                    'headers' => [
-                        'apns-priority' => '10',
-                    ],
-                    'payload' => [
-                        'aps' => [
-                            'alert' => [
-                                'title' => 'VIS - Notification',
-                                'body'  => $plainTextBody_1,
-                            ],
-                            'sound' => 'default',
-                        ],
-                    ],
-                ]));*/
-            /*$message = CloudMessage::new()
-                ->withNotification(FirebaseNotification::create('VIS - Notification', $plainTextBody_1))
-                ->withData(['title' => 'VIS - Notification', 'body' => $plainTextBody_1])
-                ->withAndroidConfig(AndroidConfig::fromArray(['priority' => 'high']))
-                ->withApnsConfig(ApnsConfig::fromArray([
-                    'headers' => ['apns-priority' => '10'],
-                    'payload' => ['aps' => [
-                        'alert' => ['title' => 'VIS - Notification', 'body' => $plainTextBody_1],
-                        'sound' => 'default',
-                    ]],
-                ]));*/
             $title = 'VIS - Notification';
             $plainTextBody_1 = trim(strip_tags($para['message']));
 
